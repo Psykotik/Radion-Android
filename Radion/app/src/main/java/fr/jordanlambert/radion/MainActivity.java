@@ -1,6 +1,8 @@
 package fr.jordanlambert.radion;
 
 import android.app.SearchManager;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -24,17 +26,19 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import static fr.jordanlambert.radion.MainActivity.API_URL;
-import static fr.jordanlambert.radion.R.id.progressBar;
-import static fr.jordanlambert.radion.R.id.responseView;
-
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private static final String TAG = "MainActivity";
+
     TextView responseView;
     ProgressBar progressBar;
-    static final String API_KEY = "BXn7Z6v2KVmshpwalMHuNQrMIijEp1T9lvDjsnC0gyvfhLdIYU";
-    static final String API_URL = "https://igdbcom-internet-game-database-v1.p.mashape.com/games/?fields=*&limit=3&offset=0&order=release_dates.date:desc&search=zelda";
+/*
+    static final String API_KEY = "343593b07c667d6";
+    static final String API_URL = "https://api.fullcontact.com/v2/person.json?";
+*/
+    static final String API_KEY = "lwUWLTDhm1mshKNpTegeITNu8qlVp1puJaGjsnlsx0Jnlkb1X3";
+    static final String API_URL = "https://igdbcom-internet-game-database-v1.p.mashape.com/games/?fields=name&limit=10&offset=0&order=release_dates.date%3Adesc&search=zelda";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +57,8 @@ public class MainActivity extends AppCompatActivity
                 new RetrieveFeedTask().execute();
             }
         });
+
+        Log.d(TAG, "After button instanciation");
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -113,9 +119,9 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         TextView t;
-        t=new TextView(this);
+        t = new TextView(this);
 
-        t=(TextView)findViewById(R.id.test);
+        //t = (TextView) findViewById(R.id.test);
 
         if (id == R.id.nav_games) {
             t.setText("Games sections");
@@ -142,53 +148,55 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-}
 
-class RetrieveFeedTask extends AsyncTask<Void, Void, String> {
+    class RetrieveFeedTask extends AsyncTask<Void, Void, String> {
 
-    private Exception exception;
+        private Exception exception;
 
-    protected void onPreExecute() {
+        protected void onPreExecute() {
 
-        progressBar.setVisibility(View.VISIBLE);
-        responseView.setText("text");
-    }
+            Log.d(TAG,"onPreExecute RetrieveFeedTask");
+            progressBar.setVisibility(View.VISIBLE);
+            progressBar.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorPrimary), PorterDuff.Mode.MULTIPLY);
+            responseView.setText(" ");
+        }
 
-    protected String doInBackground(Void... urls) {
-        // Do some validation here
+        protected String doInBackground(Void... urls) {
+            // Do some validation here
 
-        try {
-            URL url = new URL(API_URL);
-            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             try {
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
-                StringBuilder stringBuilder = new StringBuilder();
-                String line;
-                while ((line = bufferedReader.readLine()) != null) {
-                    stringBuilder.append(line).append("\n");
-                }
-                bufferedReader.close();
-                return stringBuilder.toString();
-            }
-            finally{
-                urlConnection.disconnect();
-            }
-        }
-        catch(Exception e) {
-            Log.e("ERROR", e.getMessage(), e);
-            return null;
-        }
-    }
+                URL url = new URL(API_URL);
+                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.setRequestMethod("GET");
+                urlConnection.setRequestProperty("X-Mashape-Key", API_KEY);
 
-    protected void onPostExecute(String response) {
-        if(response == null) {
-            response = "THERE WAS AN ERROR";
+                try {
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+                    StringBuilder stringBuilder = new StringBuilder();
+                    String line;
+                    while ((line = bufferedReader.readLine()) != null) {
+                        stringBuilder.append(line).append("\n");
+                    }
+                    bufferedReader.close();
+                    return stringBuilder.toString();
+                } finally {
+                    urlConnection.disconnect();
+                }
+            } catch (Exception e) {
+                Log.e("ERROR", e.getMessage(), e);
+                return null;
+            }
         }
-        progressBar.setVisibility(View.GONE);
-        Log.i("INFO", response);
-        responseView.setText(response);
-        // TODO: check this.exception
-        // TODO: do something with the feed
+
+        protected void onPostExecute(String response) {
+            if (response == null) {
+                response = "THERE WAS AN ERROR";
+            }
+            progressBar.setVisibility(View.GONE);
+            Log.i("INFO", response);
+            responseView.setText(response);
+            // TODO: check this.exception
+            // TODO: do something with the feed
 
 //            try {
 //                JSONObject object = (JSONObject) new JSONTokener(response).nextValue();
@@ -202,6 +210,6 @@ class RetrieveFeedTask extends AsyncTask<Void, Void, String> {
 //            } catch (JSONException e) {
 //                e.printStackTrace();
 //            }
+        }
     }
 }
-
