@@ -3,5 +3,6 @@
     <color name="colorPrimary">#ff5252</color>
     <color name="colorPrimaryDark">#FF9F3939</color> <!-- e24242 -->
     <color name="colorAccent">#3cd3ad</color>
+    <color name="CharcoalGrey">#414345</color>
 </resources>
 

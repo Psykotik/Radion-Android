@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity
     static final String API_URL = "https://api.fullcontact.com/v2/person.json?";
 */
     static final String API_KEY = "lwUWLTDhm1mshKNpTegeITNu8qlVp1puJaGjsnlsx0Jnlkb1X3";
-    static final String API_URL = "https://igdbcom-internet-game-database-v1.p.mashape.com/games/?fields=name&limit=10&offset=0&order=release_dates.date%3Adesc&search=zelda";
+    static final String API_URL = "https://igdbcom-internet-game-database-v1.p.mashape.com/games/?fields=name%2Csummary%2Cslug%2Curl&limit=10&offset=0&order=release_dates.date%3Adesc";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
