@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="end"
         style="@style/Base.Widget.AppCompat.Button.Borderless"
-        android:text="Find"
+        android:text="@string/buttonSearch"
         android:layout_width="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true" />

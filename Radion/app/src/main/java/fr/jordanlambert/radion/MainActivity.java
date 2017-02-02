@@ -1,7 +1,6 @@
 package fr.jordanlambert.radion;
 
 import android.app.SearchManager;
-import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -31,14 +30,14 @@ public class MainActivity extends AppCompatActivity
 
     private static final String TAG = "MainActivity";
 
-    TextView responseView;
-    ProgressBar progressBar;
-/*
-    static final String API_KEY = "343593b07c667d6";
-    static final String API_URL = "https://api.fullcontact.com/v2/person.json?";
-*/
-    static final String API_KEY = "lwUWLTDhm1mshKNpTegeITNu8qlVp1puJaGjsnlsx0Jnlkb1X3";
-    static final String API_URL = "https://igdbcom-internet-game-database-v1.p.mashape.com/games/?fields=name%2Csummary%2Cslug%2Curl&limit=10&offset=0&order=release_dates.date%3Adesc";
+    private TextView responseView;
+    private ProgressBar progressBar;
+    /*
+        static final String API_KEY = "343593b07c667d6";
+        static final String API_URL = "https://api.fullcontact.com/v2/person.json?";
+    */
+    private static final String API_KEY = "lwUWLTDhm1mshKNpTegeITNu8qlVp1puJaGjsnlsx0Jnlkb1X3";
+    private static final String API_URL = "https://igdbcom-internet-game-database-v1.p.mashape.com/games/?fields=name%2Csummary%2Cslug%2Curl&limit=10&offset=0&order=release_dates.date%3Adesc";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,25 +117,15 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        TextView t;
-        t = new TextView(this);
-
-        //t = (TextView) findViewById(R.id.test);
-
         if (id == R.id.nav_games) {
-            t.setText("Games sections");
 
         } else if (id == R.id.nav_stations) {
-            t.setText("Stations sections");
 
         } else if (id == R.id.nav_discover) {
-            t.setText("Discover sections");
 
         } else if (id == R.id.nav_news) {
-            t.setText("News sections");
 
         } else if (id == R.id.nav_settings) {
-            t.setText("Settings sections");
 
         } else if (id == R.id.nav_share) {
 
@@ -149,13 +138,13 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    class RetrieveFeedTask extends AsyncTask<Void, Void, String> {
+    private class RetrieveFeedTask extends AsyncTask<Void, Void, String> {
 
         private Exception exception;
 
         protected void onPreExecute() {
 
-            Log.d(TAG,"onPreExecute RetrieveFeedTask");
+            Log.d(TAG, "onPreExecute RetrieveFeedTask");
             progressBar.setVisibility(View.VISIBLE);
             progressBar.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorPrimary), PorterDuff.Mode.MULTIPLY);
             responseView.setText(" ");
