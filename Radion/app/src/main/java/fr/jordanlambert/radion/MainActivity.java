@@ -1,6 +1,7 @@
 package fr.jordanlambert.radion;
 
 import android.app.SearchManager;
+import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -122,10 +123,15 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_stations) {
 
         } else if (id == R.id.nav_discover) {
+            Intent myIntent = new Intent(MainActivity.this, DiscoverTestActivity.class);
+            this.startActivity(myIntent);
 
         } else if (id == R.id.nav_news) {
 
         } else if (id == R.id.nav_settings) {
+
+            Intent myIntent = new Intent(MainActivity.this, SettingsActivity.class);
+            this.startActivity(myIntent);
 
         } else if (id == R.id.nav_share) {
 
