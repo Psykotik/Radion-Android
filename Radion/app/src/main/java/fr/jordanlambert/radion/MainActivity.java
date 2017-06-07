@@ -21,6 +21,10 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -38,7 +42,7 @@ public class MainActivity extends AppCompatActivity
         static final String API_URL = "https://api.fullcontact.com/v2/person.json?";
     */
     private static final String API_KEY = "lwUWLTDhm1mshKNpTegeITNu8qlVp1puJaGjsnlsx0Jnlkb1X3";
-    private static final String API_URL = "https://igdbcom-internet-game-database-v1.p.mashape.com/games/?fields=name%2Csummary%2Cslug%2Curl&limit=10&offset=0&order=release_dates.date%3Adesc";
+    private static final String API_URL = "https://igdbcom-internet-game-database-v1.p.mashape.com/games/?fields=name%2Csummary%2Cslug%2Curl&limit=10&offset=0&order=release_dates.date%3Adesc&search=zelda";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -187,24 +191,37 @@ public class MainActivity extends AppCompatActivity
             if (response == null) {
                 response = "THERE WAS AN ERROR";
             }
+            // Hide the progressbar
             progressBar.setVisibility(View.GONE);
-            Log.i("INFO", response);
-            responseView.setText(response);
-            // TODO: check this.exception
-            // TODO: do something with the feed
 
-//            try {
-//                JSONObject object = (JSONObject) new JSONTokener(response).nextValue();
-//                String requestID = object.getString("requestId");
-//                int likelihood = object.getInt("likelihood");
-//                JSONArray photos = object.getJSONArray("photos");
-//                .
-//                .
-//                .
-//                .
-//            } catch (JSONException e) {
-//                e.printStackTrace();
-//            }
+            // Parse JSON response
+            try {
+                JSONArray jResponse = new JSONArray(response);
+                for (int i=0; i < jResponse.length(); i++)
+                {
+                    try {
+                        JSONObject oneObject = jResponse.getJSONObject(i);
+                        // Pulling items from the array
+                        String name = oneObject.getString("name");
+                        String id = oneObject.getString("id");
+                        String url = oneObject.getString("url");
+                        String summary = oneObject.getString("summary");
+
+                        Log.i("name of " + id + " ", name);
+
+                        responseView.setText(name);
+
+                    } catch (JSONException e) {
+                        Log.e(TAG, "Something went wrong during JSON parsing :/");
+                    }
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            //responseView.setText(repsonse);
+
         }
     }
 }
