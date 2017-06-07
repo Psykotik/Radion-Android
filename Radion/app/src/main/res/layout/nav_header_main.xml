@@ -27,7 +27,6 @@
         android:paddingTop="@dimen/nav_header_vertical_spacing"
         android:text="@string/menuName"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:paddingLeft="70dp"
         android:id="@+id/headerMenuName"
         />
 
@@ -35,7 +34,6 @@
         android:id="@+id/headerMenuLore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/menuLore"
-        android:paddingLeft="70dp" />
+        android:text="@string/menuLore"/>
 
 </LinearLayout>

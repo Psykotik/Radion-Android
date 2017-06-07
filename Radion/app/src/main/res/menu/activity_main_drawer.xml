@@ -5,35 +5,35 @@
         <item
             android:id="@+id/nav_games"
             android:icon="@drawable/ic_games"
-            android:title="@string/menuItemGames" />
+            android:title="@string/nav_games" />
         <item
             android:id="@+id/nav_stations"
             android:icon="@drawable/ic_stations"
-            android:title="@string/menuItemStations" />
+            android:title="@string/nav_stations" />
         <item
             android:id="@+id/nav_discover"
             android:icon="@drawable/ic_discover"
-            android:title="@string/menuItemDiscover" />
+            android:title="@string/nav_discover" />
         <item
             android:id="@+id/nav_news"
             android:icon="@drawable/ic_news"
-            android:title="@string/menuItemNews" />
+            android:title="@string/nav_news" />
         <item
             android:id="@+id/nav_settings"
             android:icon="@drawable/ic_settings"
-            android:title="@string/menuItemSettings" />
+            android:title="@string/nav_settings" />
     </group>
 
-    <item android:title="@string/menuSectionTitle">
+    <item android:title="@string/nav_title">
         <menu>
             <item
                 android:id="@+id/nav_share"
                 android:icon="@drawable/ic_menu_share"
-                android:title="@string/menuItemShare" />
+                android:title="@string/nav_share" />
             <item
                 android:id="@+id/nav_send"
                 android:icon="@drawable/ic_menu_send"
-                android:title="@string/menuItemFeedback" />
+                android:title="@string/nav_feedback" />
         </menu>
     </item>
 

@@ -1,7 +1,6 @@
-package fr.jordanlambert.radion;
+package fr.jordanlambert.radion.activity;
 
 import android.app.SearchManager;
-import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -29,6 +28,8 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+
+import fr.jordanlambert.radion.R;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -123,23 +124,25 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_games) {
+            Log.i(TAG, "Clicked on nav_games");
 
         } else if (id == R.id.nav_stations) {
+            Log.i(TAG, "Clicked on nav_stations");
 
         } else if (id == R.id.nav_discover) {
-            Intent myIntent = new Intent(MainActivity.this, DiscoverTestActivity.class);
-            this.startActivity(myIntent);
+            Log.i(TAG, "Clicked on nav_discover");
 
         } else if (id == R.id.nav_news) {
+            Log.i(TAG, "Clicked on nav_news");
 
         } else if (id == R.id.nav_settings) {
-
-            Intent myIntent = new Intent(MainActivity.this, SettingsActivity.class);
-            this.startActivity(myIntent);
+            Log.i(TAG, "Clicked on nav_settings");
 
         } else if (id == R.id.nav_share) {
+            Log.i(TAG, "Clicked on nav_share");
 
         } else if (id == R.id.nav_send) {
+            Log.i(TAG, "Clicked on nav_send");
 
         }
 

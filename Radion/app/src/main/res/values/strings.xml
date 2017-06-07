@@ -14,14 +14,24 @@
     <string name="menuLore">Discover new games !</string>
     <string name="menuLogoDescription">Radion Logo</string>
 
-    <string name="menuItemGames">Games</string>
-    <string name="menuItemStations">Stations</string>
-    <string name="menuItemDiscover">Discover</string>
-    <string name="menuItemNews">News</string>
-    <string name="menuItemSettings">Settings</string>
-    <string name="menuSectionTitle">Enjoy the app ?</string>
-    <string name="menuItemShare">Share your love</string> <!-- Should'nt be used, placeholder atm -->
-    <string name="menuItemFeedback">Send feedback</string> <!-- It may wont be used too -->
+    <string name="nav_games">Games</string>
+    <string name="nav_stations">Stations</string>
+    <string name="nav_discover">Discover</string>
+    <string name="nav_news">News</string>
+    <string name="nav_settings">Settings</string>
+    <string name="nav_title">Enjoy the app ?</string>
+    <string name="nav_share">Share your love</string> <!-- Should'nt be used, placeholder atm -->
+    <string name="nav_feedback">Send feedback</string> <!-- It may wont be used too -->
+
+    <!-- Toolbar titles when navigation menu item is selected -->
+    <string-array name="nav_item_activity_titles">
+        <item>Games</item>
+        <item>Stations</item>
+        <item>Discover</item>
+        <item>News</item>
+        <item>Settings</item>
+    </string-array>
+
 
     <!--
     ##### #### ### Content view
@@ -101,4 +111,9 @@
 
     <string name="pref_title_vibrate">Vibrate</string>
     <string name="title_activity_discover_test">DiscoverTestActivity</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_share">ShareActivity</string>
+    <string name="title_activity_feedback">FeedbackActivity</string>
 </resources>
