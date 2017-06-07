@@ -32,6 +32,9 @@
         <item>Settings</item>
     </string-array>
 
+    <string name="openDrawer">open_drawer</string>
+    <string name="closeDrawer">close_drawer</string>
+
 
     <!--
     ##### #### ### Content view
