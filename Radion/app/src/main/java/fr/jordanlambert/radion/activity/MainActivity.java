@@ -261,17 +261,17 @@ public class MainActivity extends AppCompatActivity
                         navItemIndex = 0;
                         CURRENT_TAG = TAG_GAMES;
                         break;
-                    case R.id.nav_news:
+                    case R.id.nav_stations:
                         navItemIndex = 1;
-                        CURRENT_TAG = TAG_NEWS;
+                        CURRENT_TAG = TAG_STATIONS;
                         break;
                     case R.id.nav_discover:
                         navItemIndex = 2;
                         CURRENT_TAG = TAG_DISCOVER;
                         break;
-                    case R.id.nav_stations:
+                    case R.id.nav_news:
                         navItemIndex = 3;
-                        CURRENT_TAG = TAG_STATIONS;
+                        CURRENT_TAG = TAG_NEWS;
                         break;
                     case R.id.nav_settings:
                         navItemIndex = 4;
