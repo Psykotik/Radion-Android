@@ -119,4 +119,10 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_share">ShareActivity</string>
     <string name="title_activity_feedback">FeedbackActivity</string>
+
+    <!--
+    ##### #### ### Game fragments
+    -->
+    <string name="gameFragment_hello">Welcome to the game page</string>
+
 </resources>

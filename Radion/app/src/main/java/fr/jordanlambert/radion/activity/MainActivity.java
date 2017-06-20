@@ -215,23 +215,28 @@ public class MainActivity extends AppCompatActivity
             case 0:
                 // Game frag
                 GamesFragment gameFragment = new GamesFragment();
+                Log.i(TAG, "Clicked on nav_games");
                 return gameFragment;
             case 1:
                 // News frag
                 NewsFragment newsFragement = new NewsFragment();
+                Log.i(TAG, "Clicked on nav_news");
                 return newsFragement;
             case 2:
                 // Discover frag
                 DiscoverFragment discoverFragment = new DiscoverFragment();
+                Log.i(TAG, "Clicked on nav_discover");
                 return discoverFragment;
             case 3:
                 // Stations frag
                 StationsFragment stationsFragment = new StationsFragment();
+                Log.i(TAG, "Clicked on nav_stations");
                 return stationsFragment;
 
             case 4:
                 // Settings frag
                 SettingsFragment settingsFragment = new SettingsFragment();
+                Log.i(TAG, "Clicked on nav_settings");
                 return settingsFragment;
             default:
                 return new GamesFragment();
@@ -330,9 +335,9 @@ public class MainActivity extends AppCompatActivity
 
     // show or hide the fab
     private void toggleFab() {
-        if (navItemIndex == 0)
+        /*if (navItemIndex == 0)
             fab.show();
-        else
+        else*/
             fab.hide();
     }
 
