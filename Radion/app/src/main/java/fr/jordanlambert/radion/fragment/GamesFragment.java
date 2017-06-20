@@ -29,7 +29,7 @@ public class GamesFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
+    private static final String TAG = "GamesFragment";
 
 
     // TODO: Rename and change types of parameters
@@ -82,6 +82,7 @@ public class GamesFragment extends Fragment {
             public void onClick(View v) {
                 TextView t = (TextView) v.getRootView().findViewById(R.id.alllala);
                 t.setText("Text thugyuggj");
+                onButtonCall();
             }
         });
 
@@ -126,6 +127,11 @@ public class GamesFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+
+    public void onButtonCall () {
+        Log.d(TAG, "SALUT LES BROS C LRB");
     }
 
 }

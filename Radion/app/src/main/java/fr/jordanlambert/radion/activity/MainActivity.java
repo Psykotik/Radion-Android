@@ -1,6 +1,7 @@
 package fr.jordanlambert.radion.activity;
 
 import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.net.Uri;
@@ -19,6 +20,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -83,6 +85,8 @@ public class MainActivity extends AppCompatActivity
     private FloatingActionButton fab;
     private TextView responseView;
     private ProgressBar progressBar;
+
+    private Context mCtx;
 
     private static final String API_KEY = "lwUWLTDhm1mshKNpTegeITNu8qlVp1puJaGjsnlsx0Jnlkb1X3";
     private static final String API_URL = "https://igdbcom-internet-game-database-v1.p.mashape.com/games/?fields=name%2Csummary%2Cslug%2Curl&limit=10&offset=0&order=release_dates.date%3Adesc&search=zelda";
@@ -283,14 +287,10 @@ public class MainActivity extends AppCompatActivity
                         CURRENT_TAG = TAG_SETTINGS;
                         break;
                     case R.id.nav_share:
-                        // launch new intent instead of loading fragment
-                        startActivity(new Intent(MainActivity.this, ShareActivity.class));
-                        drawer.closeDrawers();
+                        sendShareEmail();
                         return true;
                     case R.id.nav_feedback:
-                        // launch new intent instead of loading fragment
-                        startActivity(new Intent(MainActivity.this, FeedbackActivity.class));
-                        drawer.closeDrawers();
+                        sendFeedbackEmail();
                         return true;
                     default:
                         navItemIndex = 0;
@@ -511,6 +511,50 @@ public class MainActivity extends AppCompatActivity
 
             //responseView.setText(repsonse);
 
+        }
+    }
+
+    protected void sendShareEmail() {
+
+        Intent emailIntent = new Intent(Intent.ACTION_SEND);
+
+        String[] TO = {""};
+        String[] CC = {"adn_psykotik@hotmail.fr"};
+
+        String link_val = "https://github.com/Psykotik/Radion-Android";
+        String body = "Hey ! I've found an awesome application fetching games on Android ! Do you want to test ? Go for  <a href=\"" + link_val + "\">" + link_val + "</a>. Hope you'll enjoy it !\n See you soon.";
+        String subject = "Test Radion on Android RIGHT NOW !";
+
+        emailIntent.setType("message/rfc822");
+        emailIntent.putExtra(Intent.EXTRA_EMAIL  , TO);
+        emailIntent.putExtra(Intent.EXTRA_CC, CC);
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
+        emailIntent.putExtra(Intent.EXTRA_TEXT, Html.fromHtml(body));
+        try {
+            startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+        } catch (android.content.ActivityNotFoundException ex) {
+            Toast.makeText(mCtx, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    protected void sendFeedbackEmail() {
+
+        Intent emailIntent = new Intent(Intent.ACTION_SEND);
+
+        String[] TO = {"adn_psykotik@hotmail.fr"};
+
+        String subject = "[Radion Android] Feedback";
+
+        String body = "Hey ! All feedbacks are appreciated, even if the application is not in final state yet. Please feel free to contact me through this email, or with github comments. (Psykotik on github). /\nThanks !";
+
+        emailIntent.setType("message/rfc822");
+        emailIntent.putExtra(Intent.EXTRA_EMAIL  , TO);
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
+        emailIntent.putExtra(Intent.EXTRA_TEXT, Html.fromHtml(body));
+        try {
+            startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+        } catch (android.content.ActivityNotFoundException ex) {
+            Toast.makeText(mCtx, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
         }
     }
 }
