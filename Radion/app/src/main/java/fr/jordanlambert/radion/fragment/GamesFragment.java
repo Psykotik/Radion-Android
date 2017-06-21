@@ -1,9 +1,13 @@
 package fr.jordanlambert.radion.fragment;
 
 import android.content.Context;
+import android.graphics.PorterDuff;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,9 +15,16 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.w3c.dom.Text;
 
-import fr.jordanlambert.radion.API.RetrieveFeedFromAPI;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 import fr.jordanlambert.radion.R;
 
 /**
@@ -30,11 +41,6 @@ public class GamesFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private static final String TAG = "GamesFragment";
-
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     private OnFragmentInteractionListener mListener;
 
@@ -63,10 +69,7 @@ public class GamesFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+        onButtonCall();
     }
 
     @Override
@@ -81,10 +84,11 @@ public class GamesFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 TextView t = (TextView) v.getRootView().findViewById(R.id.alllala);
-                t.setText("Text thugyuggj");
+                t.setText("Loading ...");
                 onButtonCall();
             }
         });
+
 
         // Inflate the layout for this fragment
         return myInflatedView;
@@ -131,7 +135,85 @@ public class GamesFragment extends Fragment {
 
 
     public void onButtonCall () {
-        Log.d(TAG, "SALUT LES BROS C LRB");
+        Log.d(TAG, "Button Called");
+        new RetrieveFeedTask().execute();
+    }
+
+    private class RetrieveFeedTask extends AsyncTask<Void, Void, String> {
+
+        private static final String API_KEY = "lwUWLTDhm1mshKNpTegeITNu8qlVp1puJaGjsnlsx0Jnlkb1X3";
+        private static final String API_URL = "https://igdbcom-internet-game-database-v1.p.mashape.com/games/?fields=name%2Csummary%2Cslug%2Curl&limit=1&offset=0&order=release_dates.date%3Adesc&search=call of duty";
+
+
+        private Exception exception;
+
+        protected void onPreExecute() {
+
+            Log.d(TAG, "onPreExecute RetrieveFeedTask");
+        }
+
+        protected String doInBackground(Void... urls) {
+            // Do some validation here
+
+            try {
+                URL url = new URL(API_URL);
+                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.setRequestMethod("GET");
+                urlConnection.setRequestProperty("X-Mashape-Key", API_KEY);
+
+                try {
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+                    StringBuilder stringBuilder = new StringBuilder();
+                    String line;
+                    while ((line = bufferedReader.readLine()) != null) {
+                        stringBuilder.append(line).append("\n");
+                    }
+                    bufferedReader.close();
+                    return stringBuilder.toString();
+                } finally {
+                    urlConnection.disconnect();
+                }
+            } catch (Exception e) {
+                Log.e("ERROR", e.getMessage(), e);
+                return null;
+            }
+        }
+
+        protected void onPostExecute(String response) {
+            if (response == null) {
+                response = "THERE WAS AN ERROR";
+            }
+
+            // Parse JSON response
+            try {
+                JSONArray jResponse = new JSONArray(response);
+                for (int i=0; i < jResponse.length(); i++)
+                {
+                    try {
+                        JSONObject oneObject = jResponse.getJSONObject(i);
+                        // Pulling items from the array
+                        String name = oneObject.getString("name");
+                        String id = oneObject.getString("id");
+                        String url = oneObject.getString("url");
+                        String summary = oneObject.getString("summary");
+
+                        Log.i("name of " + id + " ", name);
+
+                    } catch (JSONException e) {
+                        Log.e(TAG, "Something went wrong during JSON parsing :/");
+                    }
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            TextView t = (TextView) getView().findViewById(R.id.alllala);
+            t.setText(response);
+
+            Log.d(TAG, response);
+
+        }
     }
 
 }

@@ -91,6 +91,9 @@ public class MainActivity extends AppCompatActivity
     private static final String API_KEY = "lwUWLTDhm1mshKNpTegeITNu8qlVp1puJaGjsnlsx0Jnlkb1X3";
     private static final String API_URL = "https://igdbcom-internet-game-database-v1.p.mashape.com/games/?fields=name%2Csummary%2Cslug%2Curl&limit=10&offset=0&order=release_dates.date%3Adesc&search=zelda";
 
+    public MainActivity() {
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -373,9 +376,11 @@ public class MainActivity extends AppCompatActivity
            getMenuInflater().inflate(R.menu.main, menu);
 
            // Retrieve the SearchView and plug it into SearchManager
+/*
            final SearchView searchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.action_search));
            SearchManager searchManager = (SearchManager) getSystemService(SEARCH_SERVICE);
            searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+*/
        }
         return true;
 

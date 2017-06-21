@@ -78,7 +78,7 @@ public class RetrieveFeedFromAPI extends AsyncTask<Void, Void, String> {
                     String url = oneObject.getString("url");
                     String summary = oneObject.getString("summary");
 
-                    Log.i("name of " + id + " ", name);
+                    //Log.i("name of " + id + " ", name);
 
                 } catch (JSONException e) {
                     Log.e(TAG, "Something went wrong during JSON parsing :/");
@@ -89,7 +89,6 @@ public class RetrieveFeedFromAPI extends AsyncTask<Void, Void, String> {
             e.printStackTrace();
         }
 
-        //responseView.setText(repsonse);
 
     }
 
