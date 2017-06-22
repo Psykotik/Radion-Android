@@ -1,4 +1,4 @@
-<img src="https://i.imgsafe.org/7e55add1f1.png" alt="Radion Header" />
+<img src="https://img15.hostingpics.net/pics/792990logo.png" alt="Radion Header" />
 
 # Radion Android
 
@@ -18,6 +18,10 @@ Radion is an Android, iOS and web application (links below).
 - Smartphone and tablet
 - Android 5.0 and above (API v21+)
 
+| Min SDK | Target SDK | Compile SDK | Android Studio |
+|:-------:|:----------:|:-----------:|:--------------:|
+|21       |21          |26           |2.3             |
+
 ## Installation
 
 ### On your Smartphone
@@ -34,5 +38,5 @@ Radion is available on others platforms too !
 
 Here are the others repository :
 
-- Website application : [**Radion-Web**](https://github.com/Gramatiik/Radion-Web) by Gramatiik.
+- Website application : [**Radion-Web**](https://github.com/Gramatiik/Radion-Vues) by Gramatiik.
 - iOS : [**Radion-iOS**](https://github.com/istornz/Radion-iOS) by iStornz.
