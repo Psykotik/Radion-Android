@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -37,6 +38,12 @@ public class GamesFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private static final String TAG = "GamesFragment";
+
+    private static final String API_KEY = "lwUWLTDhm1mshKNpTegeITNu8qlVp1puJaGjsnlsx0Jnlkb1X3";
+    private static String API_URL = "https://igdbcom-internet-game-database-v1.p.mashape.com/games/?fields=name%2Cslug%2Curl&limit=5&offset=0&order=release_dates.date%3Adesc&search=";
+
+    Button mButton;
+    EditText mEdit;
 
     private OnFragmentInteractionListener mListener;
 
@@ -74,13 +81,18 @@ public class GamesFragment extends Fragment {
 
         View myInflatedView = inflater.inflate(R.layout.fragment_games, container, false);
 
-        Button buttonTest = (Button) myInflatedView.findViewById(R.id.querryButtonGame);
-        buttonTest.setOnClickListener( new View.OnClickListener() {
+        mEdit = (EditText) myInflatedView.findViewById(R.id.editText);
+        mButton = (Button) myInflatedView.findViewById(R.id.querryButtonGame);
+        mButton.setOnClickListener( new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 TextView t = (TextView) v.getRootView().findViewById(R.id.alllala);
                 t.setText("Loading ...");
+                String querySearch = mEdit.getText().toString();
+                API_URL = API_URL+querySearch;
+                Log.d(TAG, querySearch);
+
                 onButtonCall();
             }
         });
@@ -137,8 +149,6 @@ public class GamesFragment extends Fragment {
 
     private class RetrieveFeedTask extends AsyncTask<Void, Void, String> {
 
-        private static final String API_KEY = "lwUWLTDhm1mshKNpTegeITNu8qlVp1puJaGjsnlsx0Jnlkb1X3";
-        private static final String API_URL = "https://igdbcom-internet-game-database-v1.p.mashape.com/games/?fields=name%2Csummary%2Cslug%2Curl&limit=1&offset=0&order=release_dates.date%3Adesc&search=call of duty";
 
 
         private Exception exception;

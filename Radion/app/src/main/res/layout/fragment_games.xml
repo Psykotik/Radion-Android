@@ -6,20 +6,11 @@
     tools:context="fr.jordanlambert.radion.fragment.GamesFragment">
 
     <TextView
+        android:layout_marginTop="100dp"
         android:id="@+id/alllala"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="@string/gameFragment_hello" />
-
-    <Button
-        android:id="@+id/querryButtonGame"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top|right"
-        android:layout_marginTop="50dp"
-        android:elevation="0dp"
-        android:text="Bouton"
-        android:textColorLink="@color/colorPrimary" />
 
     <android.support.v7.widget.RecyclerView
         android:layout_marginTop="100dp"
@@ -28,6 +19,23 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="299dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Enter game name here"
+        android:inputType="textPersonName"
+        android:text="" />
+
+    <Button
+        android:id="@+id/querryButtonGame"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|right"
+        android:elevation="0dp"
+        android:text="Search"
+        android:textColorLink="@color/colorPrimary" />
 
 
 </FrameLayout>

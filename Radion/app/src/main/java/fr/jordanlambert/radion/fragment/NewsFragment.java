@@ -2,11 +2,23 @@ package fr.jordanlambert.radion.fragment;
 
 import android.content.Context;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 import fr.jordanlambert.radion.R;
 
@@ -23,6 +35,11 @@ public class NewsFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
+    private static final String API_KEY = "lwUWLTDhm1mshKNpTegeITNu8qlVp1puJaGjsnlsx0Jnlkb1X3";
+    private static final String TAG = "NewsFragment";
+    private static String API_URL = "https://igdbcom-internet-game-database-v1.p.mashape.com/pulses/";
+
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -65,6 +82,7 @@ public class NewsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        new RetrieveFeedTask().execute();
         return inflater.inflate(R.layout.fragment_news, container, false);
     }
 
@@ -106,4 +124,73 @@ public class NewsFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+    private class RetrieveFeedTask extends AsyncTask<Void, Void, String> {
+
+
+
+        private Exception exception;
+
+        protected void onPreExecute() {
+
+            Log.d(TAG, "onPreExecute RetrieveFeedTask");
+        }
+
+        protected String doInBackground(Void... urls) {
+            // Do some validation here
+
+            try {
+                URL url = new URL(API_URL);
+                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.setRequestMethod("GET");
+                urlConnection.setRequestProperty("X-Mashape-Key", API_KEY);
+
+                try {
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+                    StringBuilder stringBuilder = new StringBuilder();
+                    String line;
+                    while ((line = bufferedReader.readLine()) != null) {
+                        stringBuilder.append(line).append("\n");
+                    }
+                    bufferedReader.close();
+                    return stringBuilder.toString();
+                } finally {
+                    urlConnection.disconnect();
+                }
+            } catch (Exception e) {
+                Log.e("ERROR", e.getMessage(), e);
+                return null;
+            }
+        }
+
+        protected void onPostExecute(String response) {
+            if (response == null) {
+                response = "THERE WAS AN ERROR";
+            }
+
+            // Parse JSON response
+            try {
+                JSONArray jResponse = new JSONArray(response);
+                for (int i=0; i < jResponse.length(); i++)
+                {
+                    try {
+                        JSONObject oneObject = jResponse.getJSONObject(i);
+
+                    } catch (JSONException e) {
+                        Log.e(TAG, "Something went wrong during JSON parsing :/");
+                    }
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            TextView t = (TextView) getView().findViewById(R.id.textViewNews);
+            t.setText(response);
+
+            Log.d(TAG, response);
+
+        }
+    }
+
 }
